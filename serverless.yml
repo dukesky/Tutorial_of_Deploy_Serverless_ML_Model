@@ -29,7 +29,7 @@ functions:
           method: get
           request: 
             parameters:
-              queryString:
+              queryStrings:
                 medInc: true
                 houseAge: true
                 aveRooms: true
@@ -45,6 +45,6 @@ plugins:
 
 custom:
   pythonRequirements:
-    dockerizePip: true
-    slim: true
+    dockerizePip: non-linux
+    pythonBin: python
 

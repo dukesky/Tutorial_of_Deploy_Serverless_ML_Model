@@ -48,7 +48,7 @@ def predict(event, context):
 
     return response
 
-# def test():
+def test():
     event = {
         'queryStringParameters': {
             'medInc': 200000,
