@@ -16,29 +16,41 @@ def predict(event, context):
         "message": "OK",
     }
 
-    params = event['queryStringParameters']
+    if 'queryStringParameters' in event.keys():
 
-    medInc = float(params['medInc'])/100000
-    houseAge =  float(params['houseAge'])
-    aveRooms = float(params['aveRooms'])
-    aveBedrms = float(params['aveBedrms'])
-    population = float(params['population'])
-    aveOccup = float(params['aveOccup'])
-    latitude = float(params['latitude'])
-    longitude = float(params['longitude']) 
- 
-    inputVector = [medInc, houseAge, aveRooms, aveBedrms, population, aveOccup, latitude, longitude]
+        params = event['queryStringParameters']
 
-    data = [inputVector]
-    predictedPrice = model.predict(data)[0] *1000000
-    predictedPrice = round(predictedPrice,2)
-    body['predictedPrice'] = predictedPrice
+        medInc = float(params['medInc'])/100000
+        houseAge =  float(params['houseAge'])
+        aveRooms = float(params['aveRooms'])
+        aveBedrms = float(params['aveBedrms'])
+        population = float(params['population'])
+        aveOccup = float(params['aveOccup'])
+        latitude = float(params['latitude'])
+        longitude = float(params['longitude']) 
+    
+        inputVector = [medInc, houseAge, aveRooms, aveBedrms, population, aveOccup, latitude, longitude]
+
+        data = [inputVector]
+        predictedPrice = model.predict(data)[0] *1000000
+        predictedPrice = round(predictedPrice,2)
+        body['predictedPrice'] = predictedPrice
+
+        print(params)
+        print(predictedPrice)
+        print('finish one API calling')
+
+    else:
+        body["message"] = 'queryStringParameters not in event.'
+    
+    print(body['message'])
 
 
     response = {
         "statusCode": 200,
         "body": json.dumps(body),
         "headers": {
+            "Content-Type": 'application/json',
             'Access-Control-Allow-Origin': "*" ,
             # cross origin request sharing
 

@@ -336,6 +336,9 @@ function sendHousePredictionRequest() {
     $.ajax({
         type: 'GET',
         url: housingEndpoint,
+        headers: {
+            'x-api-key': 'ZMf5ND7hl31KJ3chNQ2Za5ZcBdupapLbaNXjRXBR'
+        },
         data: {
             medInc: $('#medInc').val(),
             houseAge: $('#houseAge').val(),
